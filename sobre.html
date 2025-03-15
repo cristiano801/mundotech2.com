@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mundo Tech - Conheça mais sobre nós.">
+    <meta name="keywords" content="tecnologia, sobre nós, Mundo Tech">
+    <meta name="author" content="Mundo Tech">
+    <meta name="robots" content="index, follow">
+    <title>Sobre Nós - Mundo Tech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sobre.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <nav class="navigation" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar produto..." aria-label="Campo de pesquisa">
+                <button onclick="redirectToSearch()">Buscar</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="sobre">
+            <h2>Sobre Nós</h2>
+            <p>
+                A Mundo Tech é uma empresa dedicada a oferecer os melhores produtos de tecnologia com qualidade e preço justo.
+                Fundada em 2024, nossa missão é levar inovação e praticidade para o dia a dia das pessoas.
+            </p>
+            <div class="equipe">
+                <h3>Nossa Equipe</h3>
+                <div class="membros">
+                    <div class="membro">
+                        <img src="./img/equipe1.jpg" alt="Membro da equipe 1">
+                        <h4>João Silva</h4>
+                        <p>CEO e Fundador</p>
+                    </div>
+                    <div class="membro">
+                        <img src="./img/equipe2.jpg" alt="Membro da equipe 2">
+                        <h4>Maria Souza</h4>
+                        <p>Gerente de Vendas</p>
+                    </div>
+                    <div class="membro">
+                        <img src="./img/equipe3.jpg" alt="Membro da equipe 3">
+                        <h4>Carlos Oliveira</h4>
+                        <p>Desenvolvedor Chefe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+        <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+    </footer>
+    
+    <script>
+        // Função para redirecionar para a página de resultados
+        function redirectToSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim() !== "") {
+                window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;
+            } else {
+                alert("Por favor, insira um termo de pesquisa.");
+            }
+        }
+
+        // Adicionar evento de tecla "Enter" no campo de pesquisa
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                redirectToSearch();
+            }
+        });
+    </script>
+</body>
+</html>

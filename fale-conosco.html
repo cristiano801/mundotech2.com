@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mundo Tech - Entre em contato conosco.">
+    <meta name="keywords" content="contato, suporte, Mundo Tech, WhatsApp">
+    <meta name="author" content="Mundo Tech">
+    <meta name="robots" content="index, follow">
+    <title>Fale Conosco - Mundo Tech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <nav class="navigation" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar produto..." aria-label="Campo de pesquisa">
+                <button onclick="redirectToSearch()">Buscar</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="fale-conosco">
+            <div class="container">
+                <h2>Fale Conosco</h2>
+                <p>
+                    Tem alguma dúvida, sugestão ou precisa de suporte? Entre em contato conosco preenchendo o formulário abaixo ou diretamente pelo WhatsApp.
+                </p>
+
+                <!-- Formulário de Contato -->
+                <form id="form-contato" class="form-contato">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem:</label>
+                        <textarea id="mensagem" name="mensagem" rows="5" required placeholder="Digite sua mensagem"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Enviar Mensagem</button>
+                </form>
+
+                <!-- Link para o WhatsApp -->
+                <div class="whatsapp-link">
+                    <p>Ou entre em contato diretamente pelo WhatsApp:</p>
+                    <a href="https://wa.me/244946419129" class="cta-button whatsapp-button pulse">
+                        <img src="./img/whatsapp-icon.png" alt="Ícone do WhatsApp" class="whatsapp-icon">
+                        Enviar Mensagem no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+            <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Função para redirecionar para a página de resultados
+        function redirectToSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim() !== "") {
+                window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;
+            } else {
+                alert("Por favor, insira um termo de pesquisa.");
+            }
+        }
+
+        // Adicionar evento de tecla "Enter" no campo de pesquisa
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                redirectToSearch();
+            }
+        });
+
+        // Validação do formulário de contato
+        document.getElementById('form-contato').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const mensagem = document.getElementById('mensagem').value;
+
+            if (nome && email && mensagem) {
+                alert('Mensagem enviada com sucesso!');
+                document.getElementById('form-contato').reset();

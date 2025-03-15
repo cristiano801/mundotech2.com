@@ -1,0 +1,147 @@
+/* Animação de fade-in otimizada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação de slideDown para o header */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animação de slideUp para o footer */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animação de pulso para botões */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animação de rotação para ícones */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Aplicar animações às seções */
+.bem-vindo {
+    animation: fadeIn 1s ease-out;
+}
+
+.destaques {
+    animation: fadeIn 1s ease-out 0.3s;
+}
+
+.produtos-container {
+    animation: fadeIn 1s ease-out 0.6s;
+}
+
+.postar-produto {
+    animation: fadeIn 1s ease-out 0.9s;
+}
+
+.fale-conosco {
+    animation: fadeIn 1s ease-out 1.2s;
+}
+
+/* Efeito de hover para botões */
+.cta-button, .whatsapp-button, .produto button {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.cta-button:hover, .whatsapp-button:hover, .produto button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Efeito de hover para cards de produtos */
+.produto {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.produto:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito de hover para imagens dos produtos */
+.produto img {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.produto:hover img {
+    transform: scale(1.05);
+}
+
+/* Efeito de hover para posts do blog */
+.blog-post {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito de hover para imagens do blog */
+.blog-post img {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.blog-post:hover img {
+    transform: scale(1.05);
+}
+
+/* Efeito de pulso para botões do WhatsApp */
+.whatsapp-button.pulse {
+    animation: pulse 1.8s infinite;
+}
+
+/* Efeito de rotação para ícones */
+.rotate {
+    animation: rotate 3s linear infinite;
+}
+
+/* Efeito de fade-in para mensagens de erro */
+.error-message {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Efeito de fade-in para o botão "Voltar ao Topo" */
+#backToTop {
+    animation: fadeInUp 0.5s ease-out;
+}

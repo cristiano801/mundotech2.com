@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mundo Tech - Resultados da pesquisa.">
+    <meta name="keywords" content="resultados, pesquisa, Mundo Tech">
+    <title>Resultados da Pesquisa - Mundo Tech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <nav class="navigation" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="resultados">
+            <div class="container">
+                <h2>Resultados da Pesquisa</h2>
+                <div id="resultados-container" class="produtos-grid">
+                    <!-- Os resultados da pesquisa serão carregados aqui -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+            <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Função para carregar os resultados da pesquisa
+        function carregarResultados() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('q');
+
+            // Dados simulados (substitua por dados reais ou integração com backend)
+            const produtos = [
+                {
+                    id: 1,
+                    nome: "iPhone XS Max",
+                    imagem: "./img/iphone-xs-max.jpg",
+                    preco: "240.000 Kz",
+                    condicao: "Semi-novo",
+                    descricao: "O iPhone XS Max é um smartphone poderoso com tela grande de 6,5 polegadas, câmera dupla de 12 MP e processador A12 Bionic."
+                },
+                {
+                    id: 2,
+                    nome: "iPhone 7 Plus",
+                    imagem: "./img/iphone-7-plus.jpg",
+                    preco: "70.000 Kz",
+                    condicao: "Bom",
+                    descricao: "O iPhone 7 Plus é um smartphone confiável com tela de 5,5 polegadas, câmera de 12 MP e processador A10 Fusion."
+                },
+                {
+                    id: 3,
+                    nome: "iPhone 12",
+                    imagem: "./img/iphone-12.jpg",
+                    preco: "350.000 Kz",
+                    condicao: "Muito Bom",
+                    descricao: "O iPhone 12 é um smartphone moderno com tela de 6,1 polegadas, câmera dupla de 12 MP e processador A14 Bionic."
+                }
+            ];
+
+            const resultadosContainer = document.getElementById('resultados-container');
+            resultadosContainer.innerHTML = '';
+
+            if (searchTerm) {
+                const resultados = produtos.filter(produto =>
+                    produto.nome.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+
+                if (resultados.length > 0) {
+                    resultados.forEach(produto => {
+                        const produtoHTML = `
+                            <article class="produto">
+                                <img src="${produto.imagem}" alt="${produto.nome}">
+                                <div class="info">
+                                    <h3>${produto.nome}</h3>
+                                    <p class="preco">${produto.preco}</p>
+                                    <p class="condicao">${produto.condicao}</p>
+                                    <a href="detalhesdoproduto.html?id=${produto.id}" class="btn-detalhes">Ver Detalhes</a>
+                                </div>
+                            </article>
+                        `;
+                        resultadosContainer.innerHTML += produtoHTML;
+                    });
+                } else {
+                    resultadosContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+                }
+            } else {
+                resultadosContainer.innerHTML = '<p>Por favor, insira um termo de pesquisa.</p>';
+            }
+        }
+
+        // Carregar resultados ao carregar a página
+        carregarResultados();
+    </script>
+</body>
+</html>

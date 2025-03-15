@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mundo Tech - Poste seu produto diretamente no WhatsApp.">
+    <meta name="keywords" content="postar produto, WhatsApp, Mundo Tech">
+    <title>Postar Produto - Mundo Tech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <nav class="navigation" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="postar-produto">
+            <div class="container">
+                <h2>Postar Produto</h2>
+                <p>
+                    Preencha o formulário abaixo para postar seu produto no Mundo Tech. Após o preenchimento, você será redirecionado ao WhatsApp para enviar as fotos do produto.
+                </p>
+
+                <!-- Formulário para postar produto -->
+                <form id="form-postar-produto" class="form-postar-produto">
+                    <div class="form-group">
+                        <label for="nome-produto">Nome do Produto:</label>
+                        <input type="text" id="nome-produto" name="nome-produto" required placeholder="Ex: iPhone XS Max">
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao-produto">Descrição do Produto:</label>
+                        <textarea id="descricao-produto" name="descricao-produto" rows="5" required placeholder="Descreva o produto em detalhes"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="condicao-produto">Condição do Produto:</label>
+                        <select id="condicao-produto" name="condicao-produto" required>
+                            <option value="">Selecione a condição</option>
+                            <option value="Novo">Novo</option>
+                            <option value="Semi-novo">Semi-novo</option>
+                            <option value="Usado">Usado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="preco-produto">Preço Desejado (Kz):</label>
+                        <input type="number" id="preco-produto" name="preco-produto" required placeholder="Ex: 240000">
+                    </div>
+                    <button type="submit" class="cta-button whatsapp-button pulse">Enviar para o WhatsApp</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+            <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Função para enviar o formulário para o WhatsApp
+        document.getElementById('form-postar-produto').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Captura os valores do formulário
+            const nomeProduto = document.getElementById('nome-produto').value;
+            const descricaoProduto = document.getElementById('descricao-produto').value;
+            const condicaoProduto = document.getElementById('condicao-produto').value;
+            const precoProduto = document.getElementById('preco-produto').value;
+
+            // Monta a mensagem para o WhatsApp
+            const mensagem = `Olá! Gostaria de postar um produto no Mundo Tech. Seguem as informações:
+- Nome do Produto: ${nomeProduto}
+- Descrição: ${descricaoProduto}
+- Condição: ${condicaoProduto}
+- Preço Desejado: ${precoProduto} Kz
+
+Por favor, envie as fotos do produto.`;
+
+            // Codifica a mensagem para URL
+            const mensagemCodificada = encodeURIComponent(mensagem);
+
+            // Redireciona para o WhatsApp
+            window.location.href = `https://wa.me/244946419129?text=${mensagemCodificada}`;
+        });
+    </script>
+</body>
+</html>

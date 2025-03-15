@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Produtos de tecnologia - Mundo Tech">
+    <meta name="keywords" content="tecnologia, iPhone, produtos, Mundo Tech">
+    <meta name="author" content="Mundo Tech">
+    <meta name="robots" content="index, follow">
+    <title>Produtos - Mundo Tech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <nav class="navigation" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar produto..." aria-label="Campo de pesquisa">
+                <button onclick="redirectToSearch()">Buscar</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <h1 class="page-title">Nossos Produtos</h1>
+
+        <!-- Filtros de Produtos -->
+        <div class="filtros">
+            <h3>Filtrar por:</h3>
+            <div class="filtro-group">
+                <label for="filtro-preco">Preço:</label>
+                <select id="filtro-preco">
+                    <option value="todos">Todos</option>
+                    <option value="0-100000">Até 100.000 Kz</option>
+                    <option value="100000-200000">100.000 - 200.000 Kz</option>
+                    <option value="200000-500000">200.000 - 500.000 Kz</option>
+                    <option value="500000+">Acima de 500.000 Kz</option>
+                </select>
+            </div>
+            <div class="filtro-group">
+                <label for="filtro-tipo">Tipo de Produto:</label>
+                <select id="filtro-tipo">
+                    <option value="todos">Todos</option>
+                    <option value="telefone">Telefones</option>
+                    <option value="computador">Computadores</option>
+                    <option value="teclado">Teclados</option>
+                    <option value="fone">Fones de Ouvido</option>
+                    <option value="mouse">Ratos (Mouse)</option>
+                </select>
+            </div>
+            <div class="filtro-group">
+                <label for="filtro-condicao">Condição:</label>
+                <select id="filtro-condicao">
+                    <option value="todos">Todos</option>
+                    <option value="excelente">Excelente</option>
+                    <option value="muito-bom">Muito Bom</option>
+                    <option value="bom">Bom</option>
+                    <option value="outlet">Outlet</option>
+                    <option value="reembalado">Reembalado</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Lista de Produtos -->
+        <div class="produtos-grid">
+            <!-- Produto 1 -->
+            <article class="produto" data-preco="240000" data-tipo="telefone" data-condicao="excelente">
+                <img src="./img/image copy 12.png" alt="iPhone XS Max na cor prata, 64GB">
+                <div class="info">
+                    <h3>iPhone XS Max</h3>
+                    <p class="preco">240.000 Kz</p>
+                    <p class="condicao">Excelente</p>
+                    <a href="detalhesdoproduto.html?id=1" class="btn-detalhes">Ver Detalhes</a>
+                </div>
+            </article>
+
+            <!-- Produto 2 -->
+            <article class="produto" data-preco="70000" data-tipo="telefone" data-condicao="bom">
+                <img src="./img/image copy 13.png" alt="iPhone 7 Plus na cor preta, 32GB">
+                <div class="info">
+                    <h3>iPhone 7 Plus</h3>
+                    <p class="preco">70.000 Kz</p>
+                    <p class="condicao">Bom</p>
+                    <a href="detalhesdoproduto.html?id=2" class="btn-detalhes">Ver Detalhes</a>
+                </div>
+            </article>
+
+            <!-- Produto 3 -->
+            <article class="produto" data-preco="350000" data-tipo="telefone" data-condicao="muito-bom">
+                <img src="./img/image copy 14.png" alt="iPhone 12 na cor azul, 128GB">
+                <div class="info">
+                    <h3>iPhone 12</h3>
+                    <p class="preco">350.000 Kz</p>
+                    <p class="condicao">Muito Bom</p>
+                    <a href="detalhesdoproduto.html?id=3" class="btn-detalhes">Ver Detalhes</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+        <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+    </footer>
+
+    <script>
+        // Função para redirecionar para a página de resultados
+        function redirectToSearch() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (searchTerm) {
+                window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;
+            } else {
+                alert("Por favor, insira um termo de pesquisa.");
+            }
+        }
+
+        // Filtragem de Produtos
+        const filtroPreco = document.getElementById('filtro-preco');
+        const filtroTipo = document.getElementById('filtro-tipo');
+        const filtroCondicao = document.getElementById('filtro-condicao');
+        const produtos = document.querySelectorAll('.produto');
+
+        function filtrarProdutos() {
+            const precoSelecionado = filtroPreco.value;
+            const tipoSelecionado = filtroTipo.value;
+            const condicaoSelecionada = filtroCondicao.value;
+
+            produtos.forEach(produto => {
+                const preco = parseInt(produto.getAttribute('data-preco'));
+                const tipo = produto.getAttribute('data-tipo');
+                const condicao = produto.getAttribute('data-condicao');
+
+                const precoMatch = (
+                    precoSelecionado === "todos" ||
+                    (precoSelecionado === "0-100000" && preco <= 100000) ||
+                    (precoSelecionado === "100000-200000" && preco > 100000 && preco <= 200000) ||
+                    (precoSelecionado === "200000-500000" && preco > 200000 && preco <= 500000) ||
+                    (precoSelecionado === "500000+" && preco > 500000)
+                );
+
+                const tipoMatch = (
+                    tipoSelecionado === "todos" || tipoSelecionado === tipo
+                );
+
+                const condicaoMatch = (
+                    condicaoSelecionada === "todos" || condicaoSelecionada === condicao
+                );
+
+                if (precoMatch && tipoMatch && condicaoMatch) {
+                    produto.style.display = 'block';
+                } else {
+                    produto.style.display = 'none';
+                }
+            });
+        }
+
+        filtroPreco.addEventListener('change', filtrarProdutos);
+        filtroTipo.addEventListener('change', filtrarProdutos);
+        filtroCondicao.addEventListener('change', filtrarProdutos);
+    </script>
+</body>
+</html>

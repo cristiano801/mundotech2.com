@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <a href="index.html">Logo da Empresa</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                <li><a href="paineldocliente.html" class="active">Painel do Cliente</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Buscar produtos...">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="welcome-section">
+            <h1>Bem-vindo ao seu Painel do Cliente</h1>
+            <p>Aqui você pode gerenciar suas informações, pedidos e preferências.</p>
+        </section>
+
+        <!-- Seção de Informações do Usuário -->
+        <section class="user-info">
+            <h2>Suas Informações</h2>
+            <div class="info-card">
+                <p><strong>Nome:</strong> João Silva</p>
+                <p><strong>Email:</strong> joao.silva@example.com</p>
+                <p><strong>Telefone:</strong> (11) 98765-4321</p>
+                <button class="edit-button">Editar Informações</button>
+            </div>
+        </section>
+
+        <!-- Seção de Pedidos -->
+        <section class="orders">
+            <h2>Seus Pedidos</h2>
+            <div class="order-list">
+                <div class="order-card">
+                    <p><strong>Pedido #12345</strong></p>
+                    <p>Status: Em transporte</p>
+                    <p>Data: 10/10/2023</p>
+                    <button class="details-button">Ver Detalhes</button>
+                </div>
+                <div class="order-card">
+                    <p><strong>Pedido #67890</strong></p>
+                    <p>Status: Entregue</p>
+                    <p>Data: 05/10/2023</p>
+                    <button class="details-button">Ver Detalhes</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Recomendações -->
+        <section class="recommendations">
+            <h2>Recomendados para Você</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="imagens/produto1.jpg" alt="Produto 1">
+                    <p>Produto 1</p>
+                    <p>R$ 99,90</p>
+                    <button class="buy-button">Comprar</button>
+                </div>
+                <div class="product-card">
+                    <img src="imagens/produto2.jpg" alt="Produto 2">
+                    <p>Produto 2</p>
+                    <p>R$ 149,90</p>
+                    <button class="buy-button">Comprar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p>&copy; 2023 Empresa. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="index.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+/* Estilos para a seção de blog */
+.blog-preview {
+    padding: 60px 20px;
+    background-color: var(--white-color);
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    animation: fadeIn 1s ease-out;
+}
+
+.blog-preview h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.blog-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.blog-post {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.blog-post:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.blog-post:hover img {
+    transform: scale(1.05);
+}
+
+.blog-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.blog-content h3 {
+    margin: 10px 0;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+.blog-content p {
+    font-size: 1rem;
+    color: var(--text-light-color);
+    margin-bottom: 20px;
+}
+
+.blog-content .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.blog-content .cta-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+    box-shadow: var(--shadow);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .blog-posts {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .blog-post img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-posts {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .blog-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .blog-content p {
+        font-size: 0.9rem;
+    }
+}

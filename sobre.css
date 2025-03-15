@@ -1,0 +1,93 @@
+/* Estilos para a página Sobre Nós */
+.sobre {
+    padding: 60px 20px;
+    background-color: var(--white-color);
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.sobre h2 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.sobre p {
+    font-size: 1.1rem;
+    color: var(--text-light-color);
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+.equipe {
+    margin-top: 40px;
+}
+
+.equipe h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.membros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.membro {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.membro:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.membro img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+}
+
+.membro h4 {
+    margin: 10px 0;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+.membro p {
+    font-size: 1rem;
+    color: var(--text-light-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .sobre h2 {
+        font-size: 2rem;
+    }
+
+    .sobre p {
+        font-size: 1rem;
+    }
+
+    .equipe h3 {
+        font-size: 1.8rem;
+    }
+
+    .membros {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
