@@ -46,11 +46,11 @@ function validateEmail(email) {
     return true;
 }
 
-// Função para validar telefone
+// Função para validar telefone (suporta formatos internacionais)
 function validateTelefone(telefone) {
-    const telefoneRegex = /^\d{9,}$/; // Pelo menos 9 dígitos
+    const telefoneRegex = /^\+?[\d\s-]{9,}$/; // Suporta +, dígitos, espaços e hífens
     if (!telefoneRegex.test(telefone)) {
-        showError('telefone-error', 'Por favor, insira um telefone válido (apenas números).');
+        showError('telefone-error', 'Por favor, insira um telefone válido.');
         return false;
     }
     hideError('telefone-error');
@@ -89,13 +89,11 @@ function validateTermos(termos) {
 
 // Função para sanitizar entradas de texto
 function sanitizeInput(input) {
-    return input.replace(/[<>&"']/g, ''); // Remove caracteres perigosos
+    return input.replace(/[<>&"']/g, '').trim(); // Remove caracteres perigosos e espaços em branco
 }
 
-// Validação do Formulário de Cadastro
-document.getElementById('form-cadastro')?.addEventListener('submit', function (e) {
-    e.preventDefault();
-
+// Função para validar o formulário
+function validateForm() {
     // Captura e sanitiza os valores do formulário
     const nome = sanitizeInput(document.getElementById('nome').value);
     const email = sanitizeInput(document.getElementById('email').value);
@@ -112,10 +110,44 @@ document.getElementById('form-cadastro')?.addEventListener('submit', function (e
     const isConfirmarSenhaValid = validateConfirmarSenha(senha, confirmarSenha);
     const isTermosValid = validateTermos(termos);
 
-    // Se tudo estiver válido, prossegue
-    if (isNomeValid && isEmailValid && isTelefoneValid && isSenhaValid && isConfirmarSenhaValid && isTermosValid) {
+    // Retorna true se todos os campos forem válidos
+    return isNomeValid && isEmailValid && isTelefoneValid && isSenhaValid && isConfirmarSenhaValid && isTermosValid;
+}
+
+// Adicionar evento de submit ao formulário
+document.getElementById('form-cadastro')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (validateForm()) {
         alert('Cadastro realizado com sucesso!');
         document.getElementById('form-cadastro').reset();
+    }
+});
+
+// Adicionar validação em tempo real usando event delegation
+document.getElementById('form-cadastro')?.addEventListener('input', function (e) {
+    const target = e.target;
+
+    switch (target.id) {
+        case 'nome':
+            validateRequiredField(target.value, 'nome-error', 'Por favor, insira seu nome completo.');
+            break;
+        case 'email':
+            validateEmail(target.value);
+            break;
+        case 'telefone':
+            validateTelefone(target.value);
+            break;
+        case 'senha':
+            validateSenha(target.value);
+            break;
+        case 'confirmar-senha':
+            const senha = document.getElementById('senha').value;
+            validateConfirmarSenha(senha, target.value);
+            break;
+        case 'termos':
+            validateTermos(target.checked);
+            break;
     }
 });
 

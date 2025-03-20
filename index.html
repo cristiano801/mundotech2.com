@@ -1,4 +1,187 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Mundo Tech - Encontre os melhores produtos de tecnologia com qualidade e preço justo."><meta name="keywords" content="tecnologia, produtos, iPhone, computadores, fones de ouvido"><meta name="author" content="Mundo Tech"><meta name="robots" content="index, follow"><title>Mundo Tech - Página Inicial</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="animations.css"><link rel="stylesheet" href="blog.css"><link rel="icon" href="img/favicon.ico" type="image/x-icon"></head><body><header class="header"><div class="container"><div class="logo"><h1>Mundo Tech</h1></div><button class="menu-toggle" aria-label="Abrir menu"><span class="hamburger"></span></button><nav class="navigation" aria-label="Navegação principal"><ul><li><a href="index.html" aria-current="page">Home</a></li><li><a href="produtos.html">Produtos</a></li><li><a href="sobre.html">Sobre Nós</a></li><li><a href="blog.html">Blog</a></li><li><a href="fale-conosco.html">Fale Conosco</a></li></ul></nav><div class="search-bar"><input type="text" id="searchInput" placeholder="Pesquisar produto..." aria-label="Campo de pesquisa"><button onclick="redirectToSearch()" aria-label="Buscar">Buscar</button></div></div></header><main><section class="bem-vindo" id="bem-vindo"><div class="container"><h2>Bem-vindo ao Mundo Tech!</h2><p>Encontre os melhores produtos de tecnologia com qualidade e preço justo.</p><div class="botoes"><a href="produtos.html" class="cta-button pulse">Ver Produtos</a><a href="https://wa.me/244946419129?text=Olá! Gostaria de postar um produto no Mundo Tech. Seguem as informações: Nome do Produto, Condição (Novo/Semi-novo/Usado), Fotos e Descrição." class="cta-button whatsapp-button pulse">Postar Produto</a></div></div></section><section class="destaques"><div class="container"><h2>Por que escolher a Mundo Tech?</h2><div class="vantagens"><article class="vantagem"><h3>Produtos de Qualidade</h3><p>Oferecemos apenas produtos testados e aprovados por especialistas.</p></article><article class="vantagem"><h3>Preços Competitivos</h3><p>Garantimos os melhores preços do mercado.</p></article><article class="vantagem"><h3>Atendimento Personalizado</h3><p>Nossa equipe está sempre pronta para ajudar você.</p></article></div></div></section><section class="blog-preview"><div class="container"><h2>Últimas do Blog</h2><div class="blog-posts"><article class="blog-post"><img src="./img/image copy 6.png" alt="Novidades em Tecnologia"><div class="blog-content"><h3>Novidades em Tecnologia</h3><p>Descubra as últimas tendências e inovações no mundo da tecnologia.</p><a href="blog.html#post1" class="cta-button">Leia Mais</a></div></article><article class="blog-post"><img src="./img/image copy 5.png" alt="Dicas para Manutenção de Dispositivos"><div class="blog-content"><h3>Dicas para Manutenção de Dispositivos</h3><p>Aprenda a manter seus dispositivos em perfeito estado.</p><a href="blog.html#post2" class="cta-button">Leia Mais</a></div></article></div></div></section></main><footer class="footer"><div class="container"><p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p><p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p></div></footer><button id="backToTop" title="Voltar ao Topo">↑</button><script>
-function redirectToSearch(){const searchTerm=document.getElementById('searchInput').value.trim();if(searchTerm){window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;}else{alert("Por favor, insira um termo de pesquisa.");}}
-document.getElementById('searchInput').addEventListener('keypress', function (e) {if(e.key === 'Enter'){redirectToSearch();}});const backToTopButton=document.getElementById('backToTop');window.addEventListener('scroll', () => {if(window.scrollY > 300){backToTopButton.style.display = 'block';}else{backToTopButton.style.display = 'none';}});backToTopButton.addEventListener('click', () => {window.scrollTo({top: 0, behavior: 'smooth'});});
-const menuToggle=document.querySelector('.menu-toggle');const navigation=document.querySelector('.navigation');menuToggle.addEventListener('click', () => {navigation.classList.toggle('active');menuToggle.classList.toggle('active');});</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mundo Tech - Encontre os melhores produtos de tecnologia com qualidade e preço justo.">
+    <meta name="keywords" content="tecnologia, produtos, iPhone, computadores, fones de ouvido, gadgets">
+    <meta name="author" content="Mundo Tech">
+    <meta name="robots" content="index, follow">
+    <title>Mundo Tech - Página Inicial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="navigation" aria-label="Navegação principal">
+                <ul>
+                    <li><a href="index.html" aria-current="page"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="produtos.html"><i class="fas fa-shopping-bag"></i> Produtos</a></li>
+                    <li><a href="sobre.html"><i class="fas fa-info-circle"></i> Sobre Nós</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                    <li><a href="fale-conosco.html"><i class="fas fa-envelope"></i> Fale Conosco</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar produto..." aria-label="Campo de pesquisa">
+                <button onclick="redirectToSearch()" aria-label="Buscar"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-icons">
+                <a href="./carrinho.html"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a>
+                <a href="./favoritos.html"><i class="fas fa-heart"></i> <span class="wishlist-count">0</span></a>
+                <a href="./minha-conta.html"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <!-- Seção de Boas-Vindas -->
+        <section class="bem-vindo" id="bem-vindo">
+            <div class="container">
+                <h2>Bem-vindo ao Mundo Tech!</h2>
+                <p>Encontre os melhores produtos de tecnologia com qualidade e preço justo.</p>
+                <div class="botoes">
+                    <a href="produtos.html" class="cta-button pulse">Ver Produtos</a>
+                    <a href="https://wa.me/244946419129?text=Olá! Gostaria de postar um produto no Mundo Tech. Seguem as informações: Nome do Produto, Condição (Novo/Semi-novo/Usado), Fotos e Descrição." class="cta-button whatsapp-button pulse">Postar Produto</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Destaques -->
+        <section class="destaques">
+            <div class="container">
+                <h2>Por que escolher a Mundo Tech?</h2>
+                <div class="vantagens">
+                    <article class="vantagem">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Produtos de Qualidade</h3>
+                        <p>Oferecemos apenas produtos testados e aprovados por especialistas.</p>
+                    </article>
+                    <article class="vantagem">
+                        <i class="fas fa-tags"></i>
+                        <h3>Preços Competitivos</h3>
+                        <p>Garantimos os melhores preços do mercado.</p>
+                    </article>
+                    <article class="vantagem">
+                        <i class="fas fa-headset"></i>
+                        <h3>Atendimento Personalizado</h3>
+                        <p>Nossa equipe está sempre pronta para ajudar você.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Blog -->
+        <section class="blog-preview">
+            <div class="container">
+                <h2>Últimas do Blog</h2>
+                <div class="blog-posts">
+                    <article class="blog-post">
+                        <img src="./img/image copy 2.png"Novidades em Tecnologia">
+                        <div class="blog-content">
+                            <h3>Novidades em Tecnologia</h3>
+                            <p>Descubra as últimas tendências e inovações no mundo da tecnologia.</p>
+                            <a href="blog-post1.html" class="cta-button">Leia Mais</a>
+                        </div>
+                    </article>
+                    <article class="blog-post">
+                        <img src="./img/image copy.png" a Manutenção de Dispositivos">
+                        <div class="blog-content">
+                            <h3>Dicas para Manutenção de Dispositivos</h3>
+                            <p>Aprenda a manter seus dispositivos em perfeito estado.</p>
+                            <a href="blog-post2.html" class="cta-button">Leia Mais</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+            <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+            <div class="social-media">
+                <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão de Voltar ao Topo -->
+    <button id="backToTop" title="Voltar ao Topo">↑</button>
+
+    <!-- Scripts -->
+    <script>
+        // Função para redirecionar a pesquisa
+        function redirectToSearch() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (searchTerm) {
+                window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;
+            } else {
+                alert("Por favor, insira um termo de pesquisa.");
+            }
+        }
+
+        // Adiciona evento de tecla "Enter" ao campo de pesquisa
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                redirectToSearch();
+            }
+        });
+
+        // Botão de Voltar ao Topo
+        const backToTopButton = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Menu Mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navigation = document.querySelector('.navigation');
+        menuToggle.addEventListener('click', () => {
+            navigation.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Contador de Carrinho e Favoritos
+        let cartCount = 0;
+        let wishlistCount = 0;
+
+        document.querySelectorAll('.btn-comprar').forEach(button => {
+            button.addEventListener('click', () => {
+                cartCount++;
+                document.querySelector('.cart-count').textContent = cartCount;
+            });
+        });
+
+        document.querySelector('.fa-heart').addEventListener('click', () => {
+            wishlistCount++;
+            document.querySelector('.wishlist-count').textContent = wishlistCount;
+        });
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>

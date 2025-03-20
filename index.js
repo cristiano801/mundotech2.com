@@ -1,74 +1,208 @@
-// Seleciona os elementos do DOM
-const items = document.querySelectorAll('.list .item'); // Itens da lista
-const prevButton = document.getElementById('prevButton'); // Botão de anterior
-const nextButton = document.getElementById('nextButton'); // Botão de próximo
-const indicators = document.querySelectorAll('.indicators .indicator'); // Indicadores
-const numberElement = document.querySelector('.indicators .number'); // Número do indicador
-const body = document.body; // Elemento body para mudar o tema
+// Variáveis globais
+let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+let wishlistCount = parseInt(localStorage.getItem('wishlistCount')) || 0;
 
-let currentIndex = 0; // Índice do item atual
-
-// Paleta de cores para cada item
-const colorPalettes = [
-    { background: '#212121', text: '#EAEAEA' }, // Tema escuro (iPhone XS Max)
-    { background: '#424242', text: '#EAEAEA' }, // Tema cinza escuro (iPhone 7 Plus)
-    { background: '#212121', text: '#EAEAEA' }  // Tema escuro (iPhone 12)
-];
-
-// Função para atualizar o item visível
-function updateItem(index) {
-    // Remove a classe 'active' de todos os itens e indicadores
-    items.forEach(item => item.classList.remove('active'));
-    indicators.forEach(indicator => indicator.classList.remove('active'));
-
-    // Adiciona a classe 'active' ao item e indicador atual
-    items[index].classList.add('active');
-    indicators[index].classList.add('active');
-
-    // Atualiza o número do indicador
-    numberElement.textContent = `0${index + 1}`;
-
-    // Atualiza a paleta de cores do body
-    const { background, text } = colorPalettes[index];
-    body.style.backgroundColor = background;
-    body.style.color = text;
-
-    // Animação de transição suave
-    items.forEach(item => {
-        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-50px)';
-    });
-
-    // Atualiza o item atual com transição
-    const currentItem = items[index];
-    currentItem.style.opacity = '1';
-    currentItem.style.transform = 'translateX(0)';
+// Atualiza os contadores na interface
+function updateCounters() {
+    document.querySelector('.cart-count').textContent = cartCount;
+    document.querySelector('.wishlist-count').textContent = wishlistCount;
 }
 
-// Função para navegar para o próximo item
-function nextItem() {
-    currentIndex = (currentIndex + 1) % items.length; // Avança para o próximo item
-    updateItem(currentIndex);
+// Função para adicionar um produto ao carrinho
+function adicionarAoCarrinho() {
+    cartCount++;
+    localStorage.setItem('cartCount', cartCount);
+    updateCounters();
 }
 
-// Função para navegar para o item anterior
-function prevItem() {
-    currentIndex = (currentIndex - 1 + items.length) % items.length; // Volta para o item anterior
-    updateItem(currentIndex);
+// Função para adicionar um produto aos favoritos
+function adicionarAosFavoritos() {
+    wishlistCount++;
+    localStorage.setItem('wishlistCount', wishlistCount);
+    updateCounters();
 }
 
-// Adiciona eventos de clique nas setas
-prevButton.addEventListener('click', prevItem);
-nextButton.addEventListener('click', nextItem);
+// Função para exibir mensagens de erro
+function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    if (errorElement) {
+        errorElement.style.display = 'block';
+        errorElement.textContent = message;
+        const inputElement = document.getElementById(elementId.replace('-error', ''));
+        if (inputElement) {
+            inputElement.classList.add('error');
+        }
+    }
+}
 
-// Adiciona eventos de clique nos indicadores
-indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
-        currentIndex = index; // Atualiza o índice atual
-        updateItem(currentIndex);
-    });
+// Função para esconder mensagens de erro
+function hideError(elementId) {
+    const errorElement = document.getElementById(elementId);
+    if (errorElement) {
+        errorElement.style.display = 'none';
+        const inputElement = document.getElementById(elementId.replace('-error', ''));
+        if (inputElement) {
+            inputElement.classList.remove('error');
+        }
+    }
+}
+
+// Função para validar campos obrigatórios
+function validateRequiredField(value, elementId, errorMessage) {
+    if (value.trim() === '') {
+        showError(elementId, errorMessage);
+        return false;
+    }
+    hideError(elementId);
+    return true;
+}
+
+// Função para validar e-mail
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showError('email-error', 'Por favor, insira um e-mail válido.');
+        return false;
+    }
+    hideError('email-error');
+    return true;
+}
+
+// Função para validar telefone
+function validateTelefone(telefone) {
+    const telefoneRegex = /^\+?[\d\s-]{9,}$/;
+    if (!telefoneRegex.test(telefone)) {
+        showError('telefone-error', 'Por favor, insira um telefone válido.');
+        return false;
+    }
+    hideError('telefone-error');
+    return true;
+}
+
+// Função para validar senha
+function validateSenha(senha) {
+    if (senha.length < 6) {
+        showError('senha-error', 'A senha deve ter pelo menos 6 caracteres.');
+        return false;
+    }
+    hideError('senha-error');
+    return true;
+}
+
+// Função para validar confirmação de senha
+function validateConfirmarSenha(senha, confirmarSenha) {
+    if (senha !== confirmarSenha) {
+        showError('confirmar-senha-error', 'As senhas não coincidem.');
+        return false;
+    }
+    hideError('confirmar-senha-error');
+    return true;
+}
+
+// Função para validar termos
+function validateTermos(termos) {
+    if (!termos) {
+        showError('termos-error', 'Você deve concordar com os termos.');
+        return false;
+    }
+    hideError('termos-error');
+    return true;
+}
+
+// Função para sanitizar entradas de texto
+function sanitizeInput(input) {
+    return input.replace(/[<>&"']/g, '').trim();
+}
+
+// Função para validar o formulário de cadastro
+function validateForm() {
+    const nome = sanitizeInput(document.getElementById('nome').value);
+    const email = sanitizeInput(document.getElementById('email').value);
+    const telefone = sanitizeInput(document.getElementById('telefone').value);
+    const senha = document.getElementById('senha').value;
+    const confirmarSenha = document.getElementById('confirmar-senha').value;
+    const termos = document.querySelector('input[name="termos"]').checked;
+
+    const isNomeValid = validateRequiredField(nome, 'nome-error', 'Por favor, insira seu nome completo.');
+    const isEmailValid = validateEmail(email);
+    const isTelefoneValid = validateTelefone(telefone);
+    const isSenhaValid = validateSenha(senha);
+    const isConfirmarSenhaValid = validateConfirmarSenha(senha, confirmarSenha);
+    const isTermosValid = validateTermos(termos);
+
+    return isNomeValid && isEmailValid && isTelefoneValid && isSenhaValid && isConfirmarSenhaValid && isTermosValid;
+}
+
+// Evento de submit do formulário de cadastro
+document.getElementById('form-cadastro')?.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (validateForm()) {
+        alert('Cadastro realizado com sucesso!');
+        document.getElementById('form-cadastro').reset();
+    }
 });
 
-// Inicializa o primeiro item como ativo
-updateItem(currentIndex);
+// Validação em tempo real usando event delegation
+document.getElementById('form-cadastro')?.addEventListener('input', function (e) {
+    const target = e.target;
+
+    switch (target.id) {
+        case 'nome':
+            validateRequiredField(target.value, 'nome-error', 'Por favor, insira seu nome completo.');
+            break;
+        case 'email':
+            validateEmail(target.value);
+            break;
+        case 'telefone':
+            validateTelefone(target.value);
+            break;
+        case 'senha':
+            validateSenha(target.value);
+            break;
+        case 'confirmar-senha':
+            const senha = document.getElementById('senha').value;
+            validateConfirmarSenha(senha, target.value);
+            break;
+        case 'termos':
+            validateTermos(target.checked);
+            break;
+    }
+});
+
+// Evento de tecla "Enter" no campo de pesquisa
+document.getElementById('searchInput')?.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        const searchTerm = document.getElementById('searchInput').value.trim();
+        if (searchTerm) {
+            window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;
+        } else {
+            alert("Por favor, insira um termo de pesquisa.");
+        }
+    }
+});
+
+// Botão "Voltar ao Topo"
+const backToTopButton = document.getElementById('backToTop');
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Atualiza os contadores ao carregar a página
+updateCounters();
+
+// Adiciona eventos aos botões de compra e favoritos
+document.querySelectorAll('.btn-comprar').forEach(button => {
+    button.addEventListener('click', adicionarAoCarrinho);
+});
+
+document.querySelector('.fa-heart').addEventListener('click', adicionarAosFavoritos);

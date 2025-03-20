@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras - Mundo Tech</title>
+    <link rel="stylesheet" href="./carrinho.css"> <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Ícones do Font Awesome -->
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <!-- Adicione o conteúdo do cabeçalho aqui (mesmo do index.html) -->
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="carrinho">
+            <div class="container">
+                <h2>Seu Carrinho</h2>
+
+                <!-- Lista de Produtos no Carrinho -->
+                <div class="carrinho-lista" id="carrinho-lista">
+                    <!-- Os produtos serão renderizados dinamicamente aqui -->
+                </div>
+
+                <!-- Resumo do Pedido -->
+                <div class="resumo-pedido">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="detalhes-pedido">
+                        <p>Subtotal: <span id="subtotal">R$ 0,00</span></p>
+                        <p>Frete: <span id="frete">R$ 0,00</span></p>
+                        <p>Total: <span id="total">R$ 0,00</span></p>
+                    </div>
+                    <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <!-- Adicione o conteúdo do rodapé aqui (mesmo do index.html) -->
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Recupera os itens do carrinho do localStorage ou inicializa um array vazio
+        let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+        // Função para renderizar os itens do carrinho
+        function renderizarCarrinho() {
+            const carrinhoLista = document.getElementById('carrinho-lista');
+            carrinhoLista.innerHTML = ''; // Limpa a lista antes de renderizar
+
+            let subtotal = 0;
+
+            // Verifica se o carrinho está vazio
+            if (carrinho.length === 0) {
+                carrinhoLista.innerHTML = '<p class="carrinho-vazio">Seu carrinho está vazio. Adicione produtos!</p>';
+            } else {
+                // Renderiza cada produto no carrinho
+                carrinho.forEach((produto, index) => {
+                    const produtoHTML = `
+                        <div class="produto-carrinho">
+                            <img src="${produto.imagem}" alt="${produto.nome}" class="produto-imagem">
+                            <div class="info-produto">
+                                <h3 class="produto-nome">${produto.nome}</h3>
+                                <p class="produto-preco">R$ ${produto.preco.toFixed(2)}</p>
+                                <div class="quantidade">
+                                    <button class="btn-quantidade" onclick="atualizarQuantidade(${index}, -1)">-</button>
+                                    <span class="quantidade-valor" id="quantidade-${index}">${produto.quantidade}</span>
+                                    <button class="btn-quantidade" onclick="atualizarQuantidade(${index}, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="btn-remover" onclick="removerProduto(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    carrinhoLista.innerHTML += produtoHTML;
+
+                    // Calcula o subtotal
+                    subtotal += produto.preco * produto.quantidade;
+                });
+            }
+
+            // Atualiza o resumo do pedido
+            const frete = calcularFrete(subtotal);
+            const total = subtotal + frete;
+
+            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+            document.getElementById('frete').textContent = `R$ ${frete.toFixed(2)}`;
+            document.getElementById('total').textContent = `R$ ${total.toFixed(2)}`;
+        }
+
+        // Função para atualizar a quantidade de um produto no carrinho
+        function atualizarQuantidade(index, delta) {
+            const produto = carrinho[index];
+            produto.quantidade += delta;
+
+            // Garante que a quantidade não seja menor que 1
+            if (produto.quantidade < 1) {
+                produto.quantidade = 1;
+            }
+
+            // Atualiza o localStorage e re-renderiza o carrinho
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            renderizarCarrinho();
+        }
+
+        // Função para remover um produto do carrinho
+        function removerProduto(index) {
+            carrinho.splice(index, 1); // Remove o produto do array
+            localStorage.setItem('carrinho', JSON.stringify(carrinho)); // Atualiza o localStorage
+            renderizarCarrinho(); // Re-renderiza o carrinho
+        }
+
+        // Função para calcular o frete (exemplo simples)
+        function calcularFrete(subtotal) {
+            return subtotal < 500 ? 10 : 0; // Frete grátis para compras acima de R$ 500
+        }
+
+        // Função para finalizar a compra
+        function finalizarCompra() {
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio!');
+            } else {
+                const nome = prompt('Por favor, insira seu nome:');
+                if (nome) {
+                    alert(`Obrigado pela compra, ${nome}!`);
+                    carrinho = []; // Limpa o carrinho
+                    localStorage.setItem('carrinho', JSON.stringify(carrinho)); // Atualiza o localStorage
+                    renderizarCarrinho(); // Re-renderiza o carrinho
+                } else {
+                    alert('Compra não finalizada, nome não informado.');
+                }
+            }
+        }
+
+        // Renderiza o carrinho ao carregar a página
+        document.addEventListener('DOMContentLoaded', renderizarCarrinho);
+    </script>
+</body>
+</html>

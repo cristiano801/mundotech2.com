@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos - Mundo Tech</title>
+    <link rel="stylesheet" href="./favoritos.css"> <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Ícones do Font Awesome -->
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <!-- Adicione o conteúdo do cabeçalho aqui (mesmo do index.html) -->
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="favoritos">
+            <div class="container">
+                <h2>Meus Favoritos</h2>
+                <p class="subtitulo">Veja os produtos que você adicionou aos favoritos.</p>
+
+                <!-- Grid de Produtos Favoritos -->
+                <div class="produtos-grid" id="favoritos-grid">
+                    <!-- Produtos favoritos serão renderizados dinamicamente aqui -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <!-- Adicione o conteúdo do rodapé aqui (mesmo do index.html) -->
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Recupera os favoritos do localStorage ou inicializa um array vazio
+        const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+        // Função para renderizar os favoritos
+        function renderizarFavoritos() {
+            const favoritosGrid = document.getElementById('favoritos-grid');
+            favoritosGrid.innerHTML = ''; // Limpa o grid antes de renderizar
+
+            if (favoritos.length === 0) {
+                favoritosGrid.innerHTML = '<p class="sem-favoritos">Você ainda não tem favoritos.</p>';
+            } else {
+                // Renderiza cada produto favorito
+                favoritos.forEach(produto => {
+                    const produtoHTML = `
+                        <article class="produto">
+                            <img src="${produto.imagem}" alt="${produto.nome}" class="produto-imagem">
+                            <div class="info-produto">
+                                <h3 class="produto-nome">${produto.nome}</h3>
+                                <p class="produto-preco">${produto.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'AOA' })}</p>
+                                <p class="produto-condicao">${produto.condicao}</p>
+                                <button class="btn-remover" onclick="removerFavorito(${produto.id})">
+                                    <i class="fas fa-trash"></i> Remover
+                                </button>
+                            </div>
+                        </article>
+                    `;
+                    favoritosGrid.innerHTML += produtoHTML;
+                });
+            }
+        }
+
+        // Função para remover um favorito
+        function removerFavorito(id) {
+            const index = favoritos.findIndex(f => f.id === id);
+            if (index !== -1) {
+                favoritos.splice(index, 1); // Remove o produto do array
+                localStorage.setItem('favoritos', JSON.stringify(favoritos)); // Atualiza o localStorage
+                renderizarFavoritos(); // Re-renderiza os favoritos
+            }
+        }
+
+        // Renderiza os favoritos ao carregar a página
+        document.addEventListener('DOMContentLoaded', renderizarFavoritos);
+    </script>
+    
+</body>
+</html>

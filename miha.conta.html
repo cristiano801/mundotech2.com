@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minha Conta - Mundo Tech">
+    <meta name="keywords" content="minha conta, perfil, Mundo Tech">
+    <meta name="author" content="Mundo Tech">
+    <meta name="robots" content="index, follow">
+    <title>Minha Conta - Mundo Tech</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Estilos globais -->
+    <link rel="stylesheet" href="./minhaconta.css"> <!-- Estilos específicos da página -->
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Mundo Tech</h1>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="fale-conosco.html">Fale Conosco</a></li>
+                    <li><a href="minha-conta.html">Minha Conta</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <section class="minha-conta">
+            <div class="container">
+                <h2>Minha Conta</h2>
+
+                <!-- Informações do Perfil -->
+                <div class="perfil">
+                    <h3>Informações do Perfil</h3>
+                    <form id="form-conta" class="form-conta">
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome" required value="Cristiano">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" name="email" required value="cristiano@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone:</label>
+                            <input type="tel" id="telefone" name="telefone" required value="+244946419129">
+                        </div>
+                        <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                    </form>
+                </div>
+
+                <!-- Endereço de Entrega -->
+                <div class="endereco">
+                    <h3>Endereço de Entrega</h3>
+                    <form id="form-endereco" class="form-endereco">
+                        <div class="form-group">
+                            <label for="rua">Rua:</label>
+                            <input type="text" id="rua" name="rua" required value="Rua Exemplo">
+                        </div>
+                        <div class="form-group">
+                            <label for="bairro">Bairro:</label>
+                            <input type="text" id="bairro" name="bairro" required value="Bairro Exemplo">
+                        </div>
+                        <div class="form-group">
+                            <label for="cidade">Cidade:</label>
+                            <input type="text" id="cidade" name="cidade" required value="Luanda">
+                        </div>
+                        <button type="submit" class="btn-salvar">Salvar Endereço</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

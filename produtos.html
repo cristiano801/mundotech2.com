@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,10 @@
     <title>Produtos - Mundo Tech</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="produtos.css"> <!-- Link para o arquivo CSS dos produtos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Cabeçalho -->
     <header class="header">
@@ -21,7 +25,9 @@
             <nav class="navigation" aria-label="Navegação principal">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="produtos.html" class="active">Produtos</a></li>
+                    <li><a href="favoritos.html">Favoritos</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
                     <li><a href="fale-conosco.html">Fale Conosco</a></li>
                 </ul>
             </nav>
@@ -41,7 +47,7 @@
             <h3>Filtrar por:</h3>
             <div class="filtro-group">
                 <label for="filtro-preco">Preço:</label>
-                <select id="filtro-preco">
+                <select id="filtro-preco" onchange="aplicarFiltros()">
                     <option value="todos">Todos</option>
                     <option value="0-100000">Até 100.000 Kz</option>
                     <option value="100000-200000">100.000 - 200.000 Kz</option>
@@ -51,7 +57,7 @@
             </div>
             <div class="filtro-group">
                 <label for="filtro-tipo">Tipo de Produto:</label>
-                <select id="filtro-tipo">
+                <select id="filtro-tipo" onchange="aplicarFiltros()">
                     <option value="todos">Todos</option>
                     <option value="telefone">Telefones</option>
                     <option value="computador">Computadores</option>
@@ -62,7 +68,7 @@
             </div>
             <div class="filtro-group">
                 <label for="filtro-condicao">Condição:</label>
-                <select id="filtro-condicao">
+                <select id="filtro-condicao" onchange="aplicarFiltros()">
                     <option value="todos">Todos</option>
                     <option value="excelente">Excelente</option>
                     <option value="muito-bom">Muito Bom</option>
@@ -74,39 +80,8 @@
         </div>
 
         <!-- Lista de Produtos -->
-        <div class="produtos-grid">
-            <!-- Produto 1 -->
-            <article class="produto" data-preco="240000" data-tipo="telefone" data-condicao="excelente">
-                <img src="./img/image copy 12.png" alt="iPhone XS Max na cor prata, 64GB">
-                <div class="info">
-                    <h3>iPhone XS Max</h3>
-                    <p class="preco">240.000 Kz</p>
-                    <p class="condicao">Excelente</p>
-                    <a href="detalhesdoproduto.html?id=1" class="btn-detalhes">Ver Detalhes</a>
-                </div>
-            </article>
-
-            <!-- Produto 2 -->
-            <article class="produto" data-preco="70000" data-tipo="telefone" data-condicao="bom">
-                <img src="./img/image copy 13.png" alt="iPhone 7 Plus na cor preta, 32GB">
-                <div class="info">
-                    <h3>iPhone 7 Plus</h3>
-                    <p class="preco">70.000 Kz</p>
-                    <p class="condicao">Bom</p>
-                    <a href="detalhesdoproduto.html?id=2" class="btn-detalhes">Ver Detalhes</a>
-                </div>
-            </article>
-
-            <!-- Produto 3 -->
-            <article class="produto" data-preco="350000" data-tipo="telefone" data-condicao="muito-bom">
-                <img src="./img/image copy 14.png" alt="iPhone 12 na cor azul, 128GB">
-                <div class="info">
-                    <h3>iPhone 12</h3>
-                    <p class="preco">350.000 Kz</p>
-                    <p class="condicao">Muito Bom</p>
-                    <a href="detalhesdoproduto.html?id=3" class="btn-detalhes">Ver Detalhes</a>
-                </div>
-            </article>
+        <div class="produtos-grid" id="produtos-grid">
+            <!-- Produtos serão renderizados dinamicamente -->
         </div>
     </main>
 
@@ -117,59 +92,98 @@
     </footer>
 
     <script>
-        // Função para redirecionar para a página de resultados
-        function redirectToSearch() {
-            const searchTerm = document.getElementById('searchInput').value.trim();
-            if (searchTerm) {
-                window.location.href = `resultados.html?q=${encodeURIComponent(searchTerm)}`;
-            } else {
-                alert("Por favor, insira um termo de pesquisa.");
-            }
-        }
+        // Dados dos produtos
+        const produtos = [
+            { id: 1, nome: "iPhone XS Max", preco: 240000, tipo: "telefone", condicao: "excelente", imagem: "./img/image.png" },
+            { id: 2, nome: "iPhone 7 Plus", preco: 70000, tipo: "telefone", condicao: "bom", imagem: "./img/image copy 3.png" },
+            { id: 3, nome: "iPhone 12", preco: 350000, tipo: "telefone", condicao: "muito-bom", imagem: "./img/image copy 4.png" }
+        ];
 
-        // Filtragem de Produtos
-        const filtroPreco = document.getElementById('filtro-preco');
-        const filtroTipo = document.getElementById('filtro-tipo');
-        const filtroCondicao = document.getElementById('filtro-condicao');
-        const produtos = document.querySelectorAll('.produto');
+        let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+        let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
-        function filtrarProdutos() {
-            const precoSelecionado = filtroPreco.value;
-            const tipoSelecionado = filtroTipo.value;
-            const condicaoSelecionada = filtroCondicao.value;
+        // Função para renderizar os produtos
+        function renderizarProdutos() {
+            const produtosGrid = document.getElementById('produtos-grid');
+            produtosGrid.innerHTML = '';
 
             produtos.forEach(produto => {
-                const preco = parseInt(produto.getAttribute('data-preco'));
-                const tipo = produto.getAttribute('data-tipo');
-                const condicao = produto.getAttribute('data-condicao');
-
-                const precoMatch = (
-                    precoSelecionado === "todos" ||
-                    (precoSelecionado === "0-100000" && preco <= 100000) ||
-                    (precoSelecionado === "100000-200000" && preco > 100000 && preco <= 200000) ||
-                    (precoSelecionado === "200000-500000" && preco > 200000 && preco <= 500000) ||
-                    (precoSelecionado === "500000+" && preco > 500000)
-                );
-
-                const tipoMatch = (
-                    tipoSelecionado === "todos" || tipoSelecionado === tipo
-                );
-
-                const condicaoMatch = (
-                    condicaoSelecionada === "todos" || condicaoSelecionada === condicao
-                );
-
-                if (precoMatch && tipoMatch && condicaoMatch) {
-                    produto.style.display = 'block';
-                } else {
-                    produto.style.display = 'none';
-                }
+                const isFavorito = favoritos.some(f => f.id === produto.id);
+                const produtoHTML = `
+                    <article class="produto" data-preco="${produto.preco}" data-tipo="${produto.tipo}" data-condicao="${produto.condicao}">
+                        <img src="${produto.imagem}" alt="${produto.nome}">
+                        <div class="info">
+                            <h3>${produto.nome}</h3>
+                            <p class="preco">${produto.preco.toLocaleString('pt-BR')} Kz</p>
+                            <p class="condicao">${produto.condicao}</p>
+                            <button class="btn-favorito" onclick="toggleFavorito(${produto.id})">
+                                <i class="fas fa-heart ${isFavorito ? 'favoritado' : ''}"></i>
+                            </button>
+                            <button class="btn-adicionar" onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao Carrinho</button>
+                            <a href="detalhesdoproduto.html?id=${produto.id}" class="btn-detalhes">Ver Detalhes</a>
+                        </div>
+                    </article>
+                `;
+                produtosGrid.innerHTML += produtoHTML;
             });
         }
 
-        filtroPreco.addEventListener('change', filtrarProdutos);
-        filtroTipo.addEventListener('change', filtrarProdutos);
-        filtroCondicao.addEventListener('change', filtrarProdutos);
+        // Função para adicionar/remover favoritos
+        function toggleFavorito(id) {
+            const produto = produtos.find(p => p.id === id);
+            const index = favoritos.findIndex(f => f.id === id);
+
+            if (index === -1) {
+                favoritos.push(produto);
+            } else {
+                favoritos.splice(index, 1);
+            }
+
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+            renderizarProdutos();
+        }
+
+        // Função para adicionar ao carrinho
+        function adicionarAoCarrinho(id) {
+            const produto = produtos.find(p => p.id === id);
+            const itemNoCarrinho = carrinho.find(item => item.id === id);
+
+            if (itemNoCarrinho) {
+                itemNoCarrinho.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            alert(`${produto.nome} adicionado ao carrinho!`);
+        }
+
+        // Aplicar filtros
+        function aplicarFiltros() {
+            const preco = document.getElementById('filtro-preco').value;
+            const tipo = document.getElementById('filtro-tipo').value;
+            const condicao = document.getElementById('filtro-condicao').value;
+
+            const produtosFiltrados = produtos.filter(produto => {
+                const precoValido = (preco === 'todos' || (preco === '0-100000' && produto.preco <= 100000) || 
+                                      (preco === '100000-200000' && produto.preco >= 100000 && produto.preco <= 200000) || 
+                                      (preco === '200000-500000' && produto.preco >= 200000 && produto.preco <= 500000) || 
+                                      (preco === '500000+' && produto.preco > 500000));
+
+                const tipoValido = (tipo === 'todos' || produto.tipo === tipo);
+                const condicaoValida = (condicao === 'todos' || produto.condicao === condicao);
+
+                return precoValido && tipoValido && condicaoValida;
+            });
+
+            // Atualiza os produtos exibidos
+            produtos = produtosFiltrados;
+            renderizarProdutos();
+        }
+
+        // Renderiza os produtos ao carregar a página
+        document.addEventListener('DOMContentLoaded', renderizarProdutos);
     </script>
 </body>
+
 </html>
