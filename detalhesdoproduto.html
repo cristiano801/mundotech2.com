@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Detalhes do Produto - Mundo Tech">
-    <meta name="keywords" content="tecnologia, iPhone, detalhes, Mundo Tech">
+    <meta name="keywords" content="tecnologia, iPhone, smartphones, produtos, Mundo Tech">
     <meta name="author" content="Mundo Tech">
     <meta name="robots" content="index, follow">
     <title>Detalhes do Produto - Mundo Tech</title>
@@ -26,7 +26,7 @@
             </nav>
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Pesquisar produto..." aria-label="Campo de pesquisa">
-                <button onclick="redirectToSearch()">Buscar</button>
+                <button onclick="redirectToSearch()" aria-label="Buscar produto">Buscar</button>
             </div>
         </div>
     </header>
@@ -34,15 +34,15 @@
     <!-- Conteúdo Principal -->
     <main class="container">
         <section class="detalhes-produto">
-            <h1 id="produto-nome">Carregando...</h1>
+            <h1 id="produto-nome" aria-live="polite">Carregando...</h1>
             <div class="product-gallery">
-                <img src="" alt="Imagem do Produto" id="produto-imagem" class="produto-imagem">
+                <img src="" alt="Imagem do Produto" id="produto-imagem" class="produto-imagem" aria-describedby="produto-descricao">
             </div>
             <div class="product-info">
-                <p class="preco" id="produto-preco">Preço: Carregando...</p>
-                <p class="condicao" id="produto-condicao">Condição: Carregando...</p>
-                <p class="descricao" id="produto-descricao">Descrição: Carregando...</p>
-                <a href="#" id="whatsapp-button" class="whatsapp-button">Comprar via WhatsApp</a>
+                <p class="preco" id="produto-preco" aria-live="polite">Preço: Carregando...</p>
+                <p class="condicao" id="produto-condicao" aria-live="polite">Condição: Carregando...</p>
+                <p class="descricao" id="produto-descricao" aria-live="polite">Descrição: Carregando...</p>
+                <a href="#" id="whatsapp-button" class="whatsapp-button" aria-label="Comprar via WhatsApp">Comprar via WhatsApp</a>
             </div>
         </section>
     </main>
@@ -50,7 +50,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2024 Mundo Tech. Todos os direitos reservados.</p>
-        <p>Contato: <a href="tel:+244946419129">+244 946 419 129</a></p>
+        <p>Contato: <a href="tel:+244946419129" aria-label="Ligar para Mundo Tech">+244 946 419 129</a></p>
     </footer>
 
     <script>
@@ -133,7 +133,7 @@
         });
 
         // Carregar detalhes do produto ao carregar a página
-        carregarDetalhesProduto();
+        document.addEventListener('DOMContentLoaded', carregarDetalhesProduto);
     </script>
 </body>
 </html>

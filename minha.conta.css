@@ -1,0 +1,138 @@
+/* Variáveis globais para cores e espaçamento */
+:root {
+    --primary-color: #3f4246;         /* Cor primária (azul escuro) */
+    --primary-hover-color: #505153;   /* Cor primária ao passar o mouse */
+    --secondary-color: #25d366;       /* Cor secundária (verde do WhatsApp) */
+    --secondary-hover-color: #128c7e; /* Cor secundária ao passar o mouse */
+    --success-color: #4caf50;         /* Cor de sucesso (verde) */
+    --success-hover-color: #388e3c;   /* Cor de sucesso ao passar o mouse */
+    --error-color: #f44336;           /* Cor de erro (vermelho) */
+    --error-hover-color: #d32f2f;     /* Cor de erro ao passar o mouse */
+    --background-color: #f5f5f5;      /* Cor de fundo do site */
+    --text-color: #333;               /* Cor do texto principal */
+    --text-light-color: #666;         /* Cor do texto secundário */
+    --white-color: #fff;              /* Cor branca */
+    --border-color: #ccc;             /* Cor das bordas */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra padrão */
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transição suave */
+    --padding: 20px;                  /* Espaçamento padrão */
+    --border-radius: 5px;             /* Raio de borda padrão */
+    --font-family: 'Arial', sans-serif; /* Fonte padrão */
+}
+
+/* Reset básico */
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--padding);
+}
+
+/* Estilos para a seção Minha Conta */
+.minha-conta {
+    padding: 40px 0;
+}
+
+.minha-conta h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.perfil, .endereco {
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.perfil:hover, .endereco:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.perfil h3, .endereco h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Estilos para formulários */
+.form-conta, .form-endereco {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+.btn-salvar {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.btn-salvar:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .minha-conta h2 {
+        font-size: 24px;
+    }
+
+    .perfil h3, .endereco h3 {
+        font-size: 20px;
+    }
+
+    .form-group input {
+        font-size: 14px;
+    }
+
+    .btn-salvar {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
